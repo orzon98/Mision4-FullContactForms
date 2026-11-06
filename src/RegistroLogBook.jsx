@@ -26,7 +26,7 @@ export const esquemaRegistro = z
     });
 
 export default function RegistroLogBook(){
-  const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm({
+  const {register, handleSubmit, reset, formState: {errors, isSubmitting}} = useForm({
     resolver: zodResolver(esquemaRegistro),
     defaultValues: {via:"", sector: "", grado: "", tipoEncadene: "", fecha: "", notas: ""},
   });
@@ -34,6 +34,7 @@ export default function RegistroLogBook(){
   async function onSubmit(datos) {
     await new Promise((r) => setTimeout(r, 800)); // temporal
     console.log(datos);
+    reset();
   }
 
   return (
