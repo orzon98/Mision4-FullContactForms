@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import './App.css'
+import RegistroLogBook from "./RegistroLogBook"
+
 
 function App() {
 
 
   return (
     <>
-      
+      <RegistroLogBook/>
     </>
   )
 }

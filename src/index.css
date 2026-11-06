@@ -1,0 +1,93 @@
+:root {
+  --fondo: #1c1a17;
+  --tarjeta: #2a2622;
+  --borde: #4a423a;
+  --texto: #f1e9df;
+  --suave: #a89b8c;
+  --acento: #e07a2f;
+  --acento-hover: #f09245;
+  --error: #ff6b5e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, sans-serif;
+}
+
+.logbook {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--acento);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.campo label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--suave);
+}
+
+.campo input,
+.campo select {
+  padding: 0.7rem 0.8rem;
+  background: var(--fondo);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(224, 122, 47, 0.25);
+}
+
+.campo [aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.error {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--error);
+}
+
+.btn {
+  margin-top: 0.5rem;
+  padding: 0.85rem;
+  background: var(--acento);
+  color: #1c1a17;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:hover:not(:disabled) { background: var(--acento-hover); }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { opacity: 0.6; cursor: wait; }
