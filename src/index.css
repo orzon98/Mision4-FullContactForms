@@ -1,460 +1,158 @@
-@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,wght@1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Karla:wght@400;600&display=swap");
 
 :root {
-  --roca: #13110e;
-  --ficha: #2c2721;
-  --borde: #4b4238;
-  --tiza: #f0e8da;
-  --polvo: #9f917d;
-  --ocre: #e0963a;
-  --arcilla: #c4552d;
-  --error: #ff7a6b;
-
-  --g-facil: #8fb35a;
-  --g-medio: #e6c34a;
-  --g-duro: #e0833a;
-  --g-muyduro: #d9513c;
-  --g-elite: #b57edc;
-
-  --display: "Big Shoulders Display", Impact, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --serif: "Newsreader", Georgia, serif;
+  --fondo: #f3eee4;
+  --tarjeta: #fffdf8;
+  --tinta: #26221d;
+  --suave: #7a7060;
+  --borde: #ddd2bf;
+  --acento: #c4532a;
+  --error: #b3261e;
 }
 
 * { box-sizing: border-box; }
-::selection { background: var(--ocre); color: var(--roca); }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(120% 55% at 50% -10%, rgba(224, 150, 58, 0.24), transparent 60%),
-    var(--roca);
-  color: var(--tiza);
-  font-family: var(--mono);
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Karla", sans-serif;
+  line-height: 1.5;
 }
 
-/* grano de roca */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.09;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+#root {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
 }
-#root { position: relative; z-index: 1; }
 
-/* ---------- cabecera ---------- */
-.cabecera { text-align: center; padding: 3rem 1rem 0; }
-
-.kicker {
+/* Cabecera */
+.cabecera { margin-bottom: 2rem; }
+.cabecera p {
   margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.35em;
+  color: var(--acento);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--ocre);
 }
-
 .cabecera h1 {
   margin: 0.2rem 0 0;
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: clamp(3.5rem, 13vw, 6.5rem);
-  line-height: 0.9;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1;
 }
 
-/* cresta de montaña */
-.cabecera::after {
-  content: "";
-  display: block;
-  height: 46px;
-  width: min(520px, calc(100% - 2rem));
-  margin: 1.5rem auto 0;
-  background: linear-gradient(var(--ocre), var(--arcilla));
-  clip-path: polygon(0 100%, 8% 55%, 15% 70%, 27% 18%, 36% 60%, 46% 35%, 55% 75%, 66% 8%, 76% 55%, 86% 40%, 100% 100%);
-}
-
-/* ---------- formulario ---------- */
+/* Formulario */
 .logbook {
-  width: min(520px, calc(100% - 2rem));
-  margin: 0 auto 3rem;
-  padding: 2rem 2rem 2.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-  background: var(--ficha);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+  padding: 1.5rem;
+  background: var(--tarjeta);
   border: 1px solid var(--borde);
-  border-top: 4px solid var(--ocre);
-  border-radius: 4px;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
-  animation: aparecer 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  border-radius: 14px;
 }
+.campo:last-of-type,
+.logbook .btn,
+.logbook > p { grid-column: 1 / -1; }
 
-.campo label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--polvo);
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
-
-.campo input,
-.campo select {
-  padding: 0.55rem 0;
-  background: transparent;
-  color: var(--tiza);
-  border: 0;
-  border-bottom: 1px solid var(--borde);
-  border-radius: 0;
-  font-family: var(--mono);
-  font-size: 1rem;
-  letter-spacing: normal;
-  text-transform: none;
-  color-scheme: dark;
-  transition: border-color 0.15s, box-shadow 0.15s;
+input, select {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--tinta);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
 }
-
-.campo select {
-  appearance: none;
-  padding-right: 1.6rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23e0963a' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.2rem center;
+input:focus-visible, select:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
 }
-.campo option { background: var(--ficha); color: var(--tiza); }
+[aria-invalid="true"] { border-color: var(--error); }
 
-.campo input:focus,
-.campo select:focus {
-  outline: none;
-  border-bottom-color: var(--ocre);
-  box-shadow: 0 1px 0 0 var(--ocre);
-}
-
-.campo [aria-invalid="true"] { border-bottom-color: var(--error); }
-
-.error {
-  margin: 0.4rem 0 0;
-  font-size: 0.78rem;
-  color: var(--error);
-}
-.error::before { content: "▲ "; }
+.error { margin: 0.3rem 0 0; color: var(--error); font-size: 0.85rem; }
+p[role="status"] { margin: 0; color: #2f6b3f; font-weight: 600; }
 
 .btn {
-  margin-top: 0.6rem;
-  padding: 0.7rem;
-  background: var(--ocre);
-  color: var(--roca);
+  padding: 0.8rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--acento);
   border: 0;
-  border-radius: 2px;
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: 1.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 4px 4px 0 var(--arcilla);
-  transition: transform 0.12s, box-shadow 0.12s;
+  transition: filter 0.15s;
 }
-.btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--arcilla); }
-.btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--arcilla); }
+.btn:hover:not(:disabled) { filter: brightness(1.1); }
 .btn:disabled { opacity: 0.6; cursor: wait; }
 
-/* ---------- lista: línea de ruta con chapas ---------- */
+/* Filtro y lista */
+.filtro { margin: 2rem 0 1rem; max-width: 14rem; }
+
 .lista {
-  position: relative;
-  width: min(520px, calc(100% - 2rem));
-  margin: 0 auto 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+.vacio { color: var(--suave); text-align: center; padding: 2rem 0; }
+
+/* Tarjeta */
+.tarjeta {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-}
-.lista::before {
-  content: "";
-  position: absolute;
-  left: -26px;
-  top: 0;
-  bottom: 0;
-  border-left: 2px dashed rgba(224, 150, 58, 0.35);
-}
-
-/* ---------- ficha de vía ---------- */
-.tarjeta {
-  position: relative;
-  padding: 1.1rem 1.3rem 0.9rem;
-  background: var(--ficha);
+  gap: 0.4rem;
+  padding: 1rem 1.1rem;
+  background: var(--tarjeta);
   border: 1px solid var(--borde);
-  border-radius: 4px;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
-  transition: transform 0.18s, box-shadow 0.18s;
-  animation: aparecer 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 90ms);
+  border-left: 4px solid var(--acento);
+  border-radius: 10px;
 }
-.tarjeta:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35); }
-
-/* la chapa (anclaje) */
-.tarjeta::before {
-  content: "";
-  position: absolute;
-  left: -34px;
-  top: 1.45rem;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--roca);
-  border: 2px solid var(--ocre);
-}
-
 .tarjeta-cabecera {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: baseline;
+  gap: 0.5rem;
 }
-
 .tarjeta h3 {
   margin: 0;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-family: "Fraunces", serif;
+  font-size: 1.15rem;
 }
-
 .grado {
-  --g: var(--ocre);
-  color: var(--g);
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: 2.4rem;
-  line-height: 0.85;
-  padding-bottom: 0.2rem;
-  border-bottom: 3px solid var(--g);
+  padding: 0.1rem 0.55rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--tinta);
+  border-radius: 999px;
 }
-.grado[data-grado^="3"],
-.grado[data-grado^="4"],
-.grado[data-grado^="5"] { --g: var(--g-facil); }
-.grado[data-grado^="6"] { --g: var(--g-medio); }
-.grado[data-grado^="7"] { --g: var(--g-duro); }
-.grado[data-grado^="8"] { --g: var(--g-muyduro); }
-.grado[data-grado^="9"] { --g: var(--g-elite); }
-
-.sector {
-  margin: 0.5rem 0 0;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--polvo);
-}
-
-.notas {
-  margin: 0.8rem 0 0;
-  padding-left: 0.8rem;
-  border-left: 2px solid var(--borde);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  color: rgba(240, 232, 218, 0.85);
-}
+.sector, .notas { margin: 0; font-size: 0.9rem; color: var(--suave); }
+.notas { font-style: italic; }
 
 .tarjeta-pie {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px dashed var(--borde);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  color: var(--polvo);
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--suave);
 }
+.tipo { font-weight: 600; }
+.tipo[data-tipo="A vista"] { color: #2f6b3f; }
+.tipo[data-tipo="Flash"] { color: #b07a10; }
+.tipo[data-tipo="Punto rojo"] { color: var(--error); }
 
-/* sello del tipo de encadene */
-.tipo {
-  --t: var(--ocre);
-  padding: 0.15rem 0.6rem;
-  border: 2px solid var(--t);
-  border-radius: 3px;
-  color: var(--t);
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transform: rotate(-3deg);
-}
-.tipo[data-tipo="A vista"] { --t: var(--g-facil); }
-.tipo[data-tipo="Flash"] { --t: var(--g-medio); }
-.tipo[data-tipo="Punto rojo"] { --t: var(--g-muyduro); }
-
-/* ---------- animación ---------- */
-@keyframes aparecer {
-  from { opacity: 0; transform: translateY(16px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .logbook, .tarjeta { animation: none; }
-}
-@media (max-width: 640px) {
-  .lista::before, .tarjeta::before { display: none; }
-}
-
-@supports (appearance: base-select) {
-  .campo select,
-  .campo select::picker(select) {
-    appearance: base-select;
-  }
-
-  /* quitamos la flecha dibujada a mano, ahora usa la nativa */
-  .campo select {
-    background-image: none;
-    padding-right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .campo select::picker-icon {
-    content: "▾";
-    color: var(--ocre);
-    transition: rotate 0.2s;
-  }
-  .campo select:open::picker-icon { rotate: 180deg; }
-
-  /* la lista desplegada */
-  .campo select::picker(select) {
-    margin-top: 0.4rem;
-    padding: 0.4rem;
-    max-height: 280px;
-    background: var(--ficha);
-    border: 1px solid var(--ocre);
-    border-radius: 4px;
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
-  }
-
-  /* cada opción */
-  .campo option {
-    padding: 0.55rem 0.8rem;
-    border-radius: 2px;
-    font-family: var(--mono);
-    font-size: 0.95rem;
-    cursor: pointer;
-  }
-  .campo option:hover,
-  .campo option:focus-visible { background: rgba(224, 150, 58, 0.18); }
-  .campo option:checked { background: var(--ocre); color: var(--roca); }
-  .campo option:disabled { color: var(--polvo); }
-  .campo option::checkmark { display: none; }
-}
-
-.filtro {
-  width: min(520px, calc(100% - 2rem));
-  margin: 0 auto 1.5rem;
-}
-
-.vacio {
-  margin: 0;
-  padding: 1.2rem;
-  text-align: center;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  color: var(--polvo);
-  border: 1px dashed var(--borde);
-  border-radius: 4px;
-}
-
-/* ---------- filtro por grado ---------- */
-.filtro {
-  width: min(520px, calc(100% - 2rem));
-  margin: 0 auto 1.5rem;
-}
-
-.filtro label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--polvo);
-}
-
-.filtro select {
-  appearance: none;
-  padding: 0.55rem 1.6rem 0.55rem 0;
-  background-color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23e0963a' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.2rem center;
-  color: var(--tiza);
-  border: 0;
-  border-bottom: 1px solid var(--borde);
-  border-radius: 0;
-  font-family: var(--mono);
-  font-size: 1rem;
-  letter-spacing: normal;
-  text-transform: none;
-  color-scheme: dark;
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.filtro select:focus {
-  outline: none;
-  border-bottom-color: var(--ocre);
-  box-shadow: 0 1px 0 0 var(--ocre);
-}
-
-.filtro option { background: var(--ficha); color: var(--tiza); }
-
-/* desplegable personalizado en Chrome/Edge */
-@supports (appearance: base-select) {
-  .filtro select,
-  .filtro select::picker(select) {
-    appearance: base-select;
-  }
-
-  .filtro select {
-    background-image: none;
-    padding-right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .filtro select::picker-icon {
-    content: "▾";
-    color: var(--ocre);
-    transition: rotate 0.2s;
-  }
-  .filtro select:open::picker-icon { rotate: 180deg; }
-
-  .filtro select::picker(select) {
-    margin-top: 0.4rem;
-    padding: 0.4rem;
-    max-height: 280px;
-    background: var(--ficha);
-    border: 1px solid var(--ocre);
-    border-radius: 4px;
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
-  }
-
-  .filtro option {
-    padding: 0.55rem 0.8rem;
-    border-radius: 2px;
-    font-family: var(--mono);
-    font-size: 0.95rem;
-    cursor: pointer;
-  }
-  .filtro option:hover,
-  .filtro option:focus-visible { background: rgba(224, 150, 58, 0.18); }
-  .filtro option:checked { background: var(--ocre); color: var(--roca); }
-  .filtro option::checkmark { display: none; }
+@media (max-width: 540px) {
+  .logbook { grid-template-columns: 1fr; }
 }
