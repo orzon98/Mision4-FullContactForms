@@ -1,6 +1,8 @@
 import {z} from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { crearAscension } from "./services/ascensiones"
 
 export const GRADOS = [
   "3", "4", "5", "5+",
@@ -26,15 +28,24 @@ export const esquemaRegistro = z
     });
 
 export default function RegistroLogBook(){
+
+  const queryClient = useQueryClient();
+
   const {register, handleSubmit, reset, formState: {errors, isSubmitting}} = useForm({
     resolver: zodResolver(esquemaRegistro),
     defaultValues: {via:"", sector: "", grado: "", tipoEncadene: "", fecha: "", notas: ""},
   });
 
-  async function onSubmit(datos) {
-    await new Promise((r) => setTimeout(r, 800)); // temporal
-    console.log(datos);
-    reset();
+  const mutacion = useMutation({
+    mutationFn: crearAscension,
+    onSuccess: () => {
+      reset();
+      queryClient.invalidateQueries({queryKey: ["ascensiones"]})
+    }
+  })
+
+  function onSubmit(datos) {
+    mutacion.mutate(datos);
   }
 
   return (
@@ -97,9 +108,12 @@ export default function RegistroLogBook(){
         {errors.notas && <p role="alert" className="error">{errors.notas.message}</p>}
       </div>
 
-      <button className="btn" type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Guardando..." : "ZLAGUEA AHORA"}
+      <button className="btn" type="submit" disabled={mutacion.isPending}>
+        {mutacion.isPending ? "Guardando..." : "ZLAGUEA AHORA"}
       </button>
+
+      {mutacion.isError && <p role="alert" className="error">{mutacion.error.message}</p>}
+      {mutacion.isSuccess && <p role="status">Zlagueado</p>}
     </form>
   )
 }

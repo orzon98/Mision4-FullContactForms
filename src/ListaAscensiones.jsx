@@ -1,11 +1,23 @@
 import {useState} from "react";
 import {GRADOS} from "./RegistroLogBook";
+import { useQuery } from "@tanstack/react-query";
+import { obtenerAscensiones } from "./services/ascensiones"
 
 
 
-export default function ListaAscensiones({ascensiones}){
+export default function ListaAscensiones(){
+    const {data, isPending, isError, error} = useQuery({
+        queryKey: ["ascensiones"],
+        queryFn: obtenerAscensiones,
+        retry: false,
+    })
+
+
     const [grado, setGrado] = useState("");
-    const visibles = grado === "" ? ascensiones : ascensiones.filter((a) => (a.grado === grado));
+    const visibles = grado === "" ? data : data.filter((a) => (a.grado === grado));
+
+    if (isPending) return <p role="status" className="vacio">Cargando ascensiones...</p>
+    if (isError) return <p role="alert" className="error">{error.message}</p>
 
     return (
     <>
